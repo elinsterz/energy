@@ -34,13 +34,21 @@ void setup() {
 }
 
 void loop() {
+
+  for (int i = 0; i < 10; i++){
+    Serial.print(i);
+    lcd.clear();
+    lcd.setCursor(0,0);
+    lcd.print("test");
+    lcd.print(i);
+    delay(5000);
+  }
+
   
-  lcd.clear();
-  lcd.setCursor(0,0);
-  lcd.print("Temperature: ");
-  Serial.println("Temperature");
-//lcd.print(temperature);
-  lcd.print("C");
+//  lcd.print("Temperature: ");
+//  Serial.println("Temperature");
+////lcd.print(temperature);
+//  lcd.print("C");
 
 
   lcd.setCursor(0,1);
