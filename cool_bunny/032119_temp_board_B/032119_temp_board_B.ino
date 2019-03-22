@@ -15,11 +15,14 @@
 
 
 #include <Wire.h>
-#include <SI7021.h>
-//#include <LiquidCrystal.h>
+//#include <SI7021.h>
+#include <LiquidCrystal.h>
 
-SI7021 sensor;
-//LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+//SI7021 sensor;
+/* old version with Arduino Mega
+ * LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+ */
+LiquidCrystal lcd(5, 12, 6, 9, 10, 11);
 
 //variables
 int reply;
@@ -27,13 +30,28 @@ int reply;
 
 void setup() {
   Serial.begin(9600);
-  sensor.begin();
-
-//  lcd.begin(16,2);
+  lcd.begin(16,2);
 }
 
 void loop() {
+  
+  lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print("Temperature: ");
+  Serial.println("Temperature");
+//lcd.print(temperature);
+  lcd.print("C");
 
+
+  lcd.setCursor(0,1);
+  lcd.print("Humidity: ");
+//lcd.print(humidity);
+  lcd.print("%");
+
+  delay(5000);
+}
+
+/* TEMP SENSOR CODE
   // this driver should work for SI7020 and SI7021, this returns 20 or 21
   int deviceid = sensor.getDeviceId();
   Serial.print("device id: ");
@@ -45,25 +63,4 @@ void loop() {
   int temperature = data.celsiusHundredths/100;
   Serial.print("data celsius in hundreths: ");
   Serial.println(temperature);
-
-/*
-  lcd.clear();
-  lcd.setCursor(0,0);
-  lcd.print("Temperature: ");
-  lcd.print(temperature);
-   lcd.print("C");
 */
-
-  int humidity = data.humidityBasisPoints/100;
-  Serial.print("data humidity basis points: ");
-  Serial.println(humidity);
-
-/*
-  lcd.setCursor(0,1);
-  lcd.print("Humidity: ");
-  lcd.print(humidity);
-  lcd.print("%");
-*/
-
-  delay(2000);
-}
