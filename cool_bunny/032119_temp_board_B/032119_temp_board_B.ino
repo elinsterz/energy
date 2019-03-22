@@ -3,7 +3,7 @@
   Name: Emily Lin
   Date: 03/21/19
 
-  Feather 32uF - Board A 
+  Feather 32uF - Board B
   Board A - temperature sensor + solar panel
   SI7021 12C Temperature & Humidity Sensor
   
@@ -66,5 +66,4 @@ void loop() {
 */
 
   delay(2000);
-
 }
