@@ -75,8 +75,7 @@ int reply;
 // Singleton instance of the radio driver
 RH_RF95 rf95(RFM95_CS, RFM95_INT);
 
-void setup()
-{
+void setup(){
 
   pinMode(RFM95_RST, OUTPUT);
   digitalWrite(RFM95_RST, HIGH);
@@ -122,8 +121,7 @@ void setup()
 
 int16_t packetnum = 0;  // packet counter, we increment per xmission
 
-void loop()
-{
+void loop() {
   // Step 1...read the data from temperature + humidity sensor
   
   // this driver should work for SI7020 and SI7021, this returns 20 or 21
@@ -135,8 +133,12 @@ void loop()
   // get humidity and temperature in one shot, saves power because sensor takes temperature when doing humidity anyway
   si7021_env data = sensor.getHumidityAndTemperature();
   int temperature = data.celsiusHundredths/100;
-  Serial.print("data celsius in hundreths: ");
+  Serial.print("temperature in C: ");
   Serial.println(temperature);
+
+  int fahrenheit = (temperature * 1.8) + 32;
+  Serial.print("temperature in F: ");
+  Serial.println(fahrenheit);
 
   int humidity = data.humidityBasisPoints/100;
   Serial.print("data humidity basis points: ");
@@ -146,10 +148,16 @@ void loop()
   delay(1000); // Wait 1 second between transmits, could also 'sleep' here!
   Serial.println("Transmitting..."); // Send a message to rf95_server
 
-  char radiopacket[20] = "Hello World #      ";
-  itoa(packetnum++, radiopacket + 13, 10);
+  //formatting data to be transmitted
+  char radiopacket[20];  //definining the transmitted string
+
+  char str_1[3] = "T:";  //define string 1 as parameter
+  char str_2[3] = "H:";  //define string 2 as parameter
+
+  sprintf(radiopacket, "%s %i | %s %i", str_1, fahrenheit, str_2, humidity);  //concatonate parameters into single string
+  
   Serial.print("Sending "); Serial.println(radiopacket);
-  radiopacket[19] = 0;
+  radiopacket[19] = 0;  //0 register at the end of the string (?) 
 
   Serial.println("Sending...");
   delay(10);
