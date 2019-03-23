@@ -6,8 +6,8 @@
   Feather 32uF - Board B
   Board A - temperature sensor + solar panel
   SI7021 12C Temperature & Humidity Sensor
-  
-  Notes: Code edited for Feather 32uF 
+
+  Notes: Code edited for Feather 32uF
   Code edited from: https://github.com/LowPowerLab/SI7021/blob/master/examples/readsensor/readsensor.ino
 
   Credit: Felix Rusu
@@ -20,8 +20,8 @@
 
 //SI7021 sensor;
 /* old version with Arduino Mega
- * LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
- */
+   LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+*/
 LiquidCrystal lcd(5, 12, 6, 9, 10, 11);
 
 //variables
@@ -30,30 +30,30 @@ int reply;
 
 void setup() {
   Serial.begin(9600);
-  lcd.begin(16,2);
+  lcd.begin(16, 2);
 }
 
 void loop() {
 
-  for (int i = 0; i < 10; i++){
+  for (int i = 0; i < 10; i++) {
     Serial.print(i);
     lcd.clear();
-    lcd.setCursor(0,0);
+    lcd.setCursor(0, 0);
     lcd.print("test");
     lcd.print(i);
     delay(5000);
   }
 
-  
-//  lcd.print("Temperature: ");
-//  Serial.println("Temperature");
-////lcd.print(temperature);
-//  lcd.print("C");
+
+  //  lcd.print("Temperature: ");
+  //  Serial.println("Temperature");
+  ////lcd.print(temperature);
+  //  lcd.print("C");
 
 
-  lcd.setCursor(0,1);
+  lcd.setCursor(0, 1);
   lcd.print("Humidity: ");
-//lcd.print(humidity);
+  //lcd.print(humidity);
   lcd.print("%");
 
   delay(5000);
