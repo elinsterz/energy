@@ -82,11 +82,13 @@ void setup(){
 
   //baud rate (number of bits per second) is larger
   Serial.begin(115200);
-  while (!Serial) {
-    delay(1);
 
-    sensor.begin();
+  /*
+   while (!Serial) {
+    delay(1);  
   }
+  */
+  sensor.begin();
 
   delay(100);
 
