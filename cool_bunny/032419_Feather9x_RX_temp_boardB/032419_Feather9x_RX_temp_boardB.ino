@@ -1,6 +1,6 @@
 /*
   Name: Emily Lin
-  Date: 03/23/19
+  Date: 03/24/19
 
   Notes:
   - Code combines Board B, which receives the temperature + humidity to display on LCD Display, with the Feather9X RX Example Code
@@ -27,15 +27,14 @@
 // level messaging abilities.
 // It is designed to work with the other example Feather9x_TX
 
-#include <Adafruit_SleepyDog.h>
 
-#include <SPI.h>
-#include <RH_RF95.h>
+#include <SPI.h> //for temperature sensor
+#include <RH_RF95.h> //for feather
 
 #include <Wire.h>  //for temperature sensor
 #include <LiquidCrystal.h>  //for lcd display
 
-LiquidCrystal lcd(5, 12, 6, 9, 10, 11);   // lcd pins
+LiquidCrystal lcd(5, 12, 6, A5, 10, 11);   // lcd pins
 
 int reply;
 
@@ -44,7 +43,8 @@ int fan = A0;  // pin for fan
 int temperature;
 int humidity;
 
-#define VBATPIN A9
+// pin 9 for reading battery voltage
+#define VBATPIN 9
 
 // for Feather32u4 RFM9x
 #define RFM95_CS 8
@@ -134,16 +134,19 @@ void setup()
   rf95.setTxPower(23, false);
 }
 
+
+
 void loop()
 {
 
   //reads the battery voltage and prints as serial
   float measuredvbat = analogRead(VBATPIN);
-  measuredvbat *= 2;    // we divided by 2, so multiply back
   measuredvbat *= 3.3;  // Multiply by 3.3V, our reference voltage
   measuredvbat /= 1024; // convert to voltage
-  Serial.print("VBat: " ); Serial.println(measuredvbat);
+  //Serial.print("VBat: " ); Serial.println(measuredvbat);
 
+
+  //reading the transmitted data from TX board
   if (rf95.available())
   {
     // Should be a message for us now
@@ -185,8 +188,6 @@ void loop()
       else {
         digitalWrite(fan, LOW);
       }
-
-
       /*
         // Send a reply
         uint8_t data[] = "And hello back to you";
@@ -200,12 +201,16 @@ void loop()
     {
       Serial.println("Receive failed");
     }
+    // if temperature is less than 76 F don't show anything on LCD
+    if (temperature < 76) {
+      lcd.clear();
+      lcd.setCursor(0, 0);
+      lcd.print("Cold Enough for Pashmy!");
+    }
   }
   //  else{
   //    Serial.println("No signal received!");
   //    delay(2000);
   // }
-
-
 
 }
