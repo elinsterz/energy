@@ -205,7 +205,9 @@ void loop()
     if (temperature < 76) {
       lcd.clear();
       lcd.setCursor(0, 0);
-      lcd.print("Cold Enough for Pashmy!");
+      lcd.print("Cold Enough");
+      lcd.setCursor(0, 1);
+      lcd.print("For Pashmy!");
     }
   }
   //  else{
