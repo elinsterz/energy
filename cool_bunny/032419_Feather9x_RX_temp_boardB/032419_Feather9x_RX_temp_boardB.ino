@@ -181,7 +181,7 @@ void loop()
       lcd.print(humidity);
       lcd.print("%");
 
-      if (temperature > 80) {
+      if (temperature > 75) {
         digitalWrite(fan, HIGH);
         Serial.println(temperature);
       }
@@ -201,8 +201,8 @@ void loop()
     {
       Serial.println("Receive failed");
     }
-    // if temperature is less than 76 F don't show anything on LCD
-    if (temperature < 76) {
+    // if temperature is less than 60 F don't show anything on LCD
+    if (temperature < 60) {
       lcd.clear();
       lcd.setCursor(0, 0);
       lcd.print("Cold Enough");

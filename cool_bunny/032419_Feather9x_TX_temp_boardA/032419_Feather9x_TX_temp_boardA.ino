@@ -186,8 +186,8 @@ void loop() {
 
   sprintf(radiopacket, "%s %i | %s %i", str_1, fahrenheit, str_2, humidity);  //concatonate parameters into single string
 
-  //if fahrenheit is > 75 then send the data out
-  if (fahrenheit >= 75) {
+  //if fahrenheit is > 65 then send the data out
+  if (fahrenheit >= 65) {
 
     Serial.print("Sending "); Serial.println(radiopacket);
     radiopacket[19] = 0;  //0 register at the end of the string (?)
